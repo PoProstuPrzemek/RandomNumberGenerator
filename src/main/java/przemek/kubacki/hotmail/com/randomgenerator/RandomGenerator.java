@@ -15,31 +15,103 @@ public class RandomGenerator {
 
     private double firstNumberOfRangeDouble, secondNumberOfRangeDouble;
 
-    public int getFirstNumberOfRangeInt() {
-        return firstNumberOfRangeInt;
-    }
+//    private final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    public int getSecondNumberOfRangeInt() {
-        return secondNumberOfRangeInt;
-    }
+//    private char[] charArray = new char[CHARACTERS.length()];
+    
+//    private int numberOfRandoms;
 
-    public void setFirstNumberOfRangeInt(int firstNumberOfRangeInt) {
-        this.firstNumberOfRangeInt = firstNumberOfRangeInt;
-    }
-
-    public void setSecondNumberOfRangeInt(int secondNumberOfRangeInt) {
-        this.secondNumberOfRangeInt = secondNumberOfRangeInt;
-    }
-
-    // Main method
+    /**
+     * The main method.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         RandomGenerator randGen = new RandomGenerator();
 
         randGen.askForNumbers();
         randGen.randomFromRange(randGen.getFirstNumberOfRangeInt(), randGen.getSecondNumberOfRangeInt());
+        randGen.getBoolean();
     }
 
+    /**
+     *
+     */
+    public RandomGenerator() {
+    }
+
+    public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt) {
+
+        this.firstNumberOfRangeInt = firstNumberOfRangeInt;
+        this.secondNumberOfRangeInt = secondNumberOfRangeInt;
+    }
+
+    public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat) {
+
+        this.firstNumberOfRangeFloat = firstNumberOfRangeFloat;
+        this.secondNumberOfRangeFloat = secondNumberOfRangeFloat;
+    }
+
+    public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble) {
+
+        this.firstNumberOfRangeDouble = firstNumberOfRangeDouble;
+        this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getFirstNumberOfRangeInt() {
+        return firstNumberOfRangeInt;
+    }
+
+    public void setFirstNumberOfRangeInt(int firstNumberOfRangeInt) {
+        this.firstNumberOfRangeInt = firstNumberOfRangeInt;
+    }
+
+    public int getSecondNumberOfRangeInt() {
+        return secondNumberOfRangeInt;
+    }
+
+    public void setSecondNumberOfRangeInt(int secondNumberOfRangeInt) {
+        this.secondNumberOfRangeInt = secondNumberOfRangeInt;
+    }
+
+    public float getFirstNumberOfRangeFloat() {
+        return firstNumberOfRangeFloat;
+    }
+
+    public void setFirstNumberOfRangeFloat(float firstNumberOfRangeFloat) {
+        this.firstNumberOfRangeFloat = firstNumberOfRangeFloat;
+    }
+
+    public float getSecondNumberOfRangeFloat() {
+        return secondNumberOfRangeFloat;
+    }
+
+    public void setSecondNumberOfRangeFloat(float secondNumberOfRangeFloat) {
+        this.secondNumberOfRangeFloat = secondNumberOfRangeFloat;
+    }
+
+    public double getFirstNumberOfRangeDouble() {
+        return firstNumberOfRangeDouble;
+    }
+
+    public void setFirstNumberOfRangeDouble(double firstNumberOfRangeDouble) {
+        this.firstNumberOfRangeDouble = firstNumberOfRangeDouble;
+    }
+
+    public double getSecondNumberOfRangeDouble() {
+        return secondNumberOfRangeDouble;
+    }
+
+    public void setSecondNumberOfRangeDouble(double secondNumberOfRangeDouble) {
+        this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
+    }
+
+    // trzeba zrobić scanner dla doubli i floatów
     private void askForNumbers() {
 
         Scanner scanner = new Scanner(System.in);
@@ -50,26 +122,36 @@ public class RandomGenerator {
         System.out.print("Type the second number of interval: ");
         int secondNumber = scanner.nextInt();
 
-        setFirstNumberOfRangeInt(firstNumber);
-        setSecondNumberOfRangeInt(secondNumber);
+        if (firstNumber >= secondNumber) {
+            throw new NegativeArraySizeException("The first number can't be"
+                    + " higher than the second one.");
+        } else {
 
-        System.out.print("\n");
-        System.out.println("firstNumberInt: " + firstNumber);
-        System.out.println("secondNumberInt: " + secondNumber);
-        System.out.print("\n");
+            setFirstNumberOfRangeInt(firstNumber);
+            setSecondNumberOfRangeInt(secondNumber);
+
+            System.out.print("\n");
+            System.out.println("firstNumberInt: " + firstNumber);
+            System.out.println("secondNumberInt: " + secondNumber);
+            System.out.print("\n");
+        }
     }
 
-    // nasza najważniejsza metoda, zwracająca nam liczbę z przedziału
+    /**
+     * This method
+     *
+     * @param beginningOfRange
+     * @param lastOfRange
+     */
     private void randomFromRange(int beginningOfRange, int lastOfRange) {
 
         Random random = new Random();
 
         int returnedRange;
-        returnedRange = rangeOfInterval(beginningOfRange, lastOfRange);
-
         int randomNumber = 0;
 
-        //problem z - i +
+        returnedRange = rangeOfInterval(beginningOfRange, lastOfRange);
+
         if (beginningOfRange < 0) {
             randomNumber = random.nextInt(returnedRange) + beginningOfRange;
         } else {
@@ -80,7 +162,7 @@ public class RandomGenerator {
     }
 
     /**
-     * This method returns a range of interval
+     * This method returns a range of interval.
      *
      * @param first
      * @param last
@@ -102,5 +184,30 @@ public class RandomGenerator {
         System.out.println("Range of the interval is: " + range);
 
         return range;
+    }
+
+    /**
+     * This method returns true or false value. 
+     * 
+     * Simple code of method use:
+     * 
+     * RandomGenerator r = new RandomGenerator();
+     * boolean b = r.getBoolean();
+     *
+     * @return
+     */
+    public boolean getBoolean() {
+
+        int choosedRandomNumber = 0;
+
+        Random random = new Random();
+
+        choosedRandomNumber = random.nextInt(100);
+
+        if (choosedRandomNumber % 2 == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
