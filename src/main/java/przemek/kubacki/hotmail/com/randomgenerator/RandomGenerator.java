@@ -10,16 +10,16 @@ import java.util.Scanner;
 public class RandomGenerator {
 
     private int firstNumberOfRangeInt, secondNumberOfRangeInt;
+    private int numberOfRandom = 1;
+//    private int numberOfRandomChar = 1;
 
     private float firstNumberOfRangeFloat, secondNumberOfRangeFloat;
 
     private double firstNumberOfRangeDouble, secondNumberOfRangeDouble;
 
 //    private final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
 //    private char[] charArray = new char[CHARACTERS.length()];
-    
-//    private int numberOfRandoms;
+    Random random;
 
     /**
      * The main method.
@@ -36,27 +36,30 @@ public class RandomGenerator {
     }
 
     /**
-     *
+     * Constructors
      */
     public RandomGenerator() {
     }
 
-    public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt) {
+    public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt, int numberOfRandom) {
 
         this.firstNumberOfRangeInt = firstNumberOfRangeInt;
         this.secondNumberOfRangeInt = secondNumberOfRangeInt;
+        this.numberOfRandom = numberOfRandom;
     }
 
-    public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat) {
+    public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat, int numberOfRandom) {
 
         this.firstNumberOfRangeFloat = firstNumberOfRangeFloat;
         this.secondNumberOfRangeFloat = secondNumberOfRangeFloat;
+        this.numberOfRandom = numberOfRandom;
     }
 
-    public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble) {
+    public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble, int numberOfRandom) {
 
         this.firstNumberOfRangeDouble = firstNumberOfRangeDouble;
         this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
+        this.numberOfRandom = numberOfRandom;
     }
 
     /**
@@ -111,6 +114,15 @@ public class RandomGenerator {
         this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
     }
 
+    // do i need it?
+    public int getNumberOfRandom() {
+        return numberOfRandom;
+    }
+
+    public void setNumberOfRandom(int numberOfRandom) {
+        this.numberOfRandom = numberOfRandom;
+    }
+
     // trzeba zrobić scanner dla doubli i floatów
     private void askForNumbers() {
 
@@ -145,7 +157,7 @@ public class RandomGenerator {
      */
     private void randomFromRange(int beginningOfRange, int lastOfRange) {
 
-        Random random = new Random();
+        random = new Random();
 
         int returnedRange;
         int randomNumber = 0;
@@ -162,7 +174,8 @@ public class RandomGenerator {
     }
 
     /**
-     * This method returns a range of interval.
+     * The method rangeOfInterval(int first, int last) returns a range of
+     * interval.
      *
      * @param first
      * @param last
@@ -187,10 +200,20 @@ public class RandomGenerator {
     }
 
     /**
-     * This method returns true or false value. 
-     * 
-     * Simple code of method use:
-     * 
+     * spróbować coś z tablicą...
+     */
+    private int NumberOfRandom() {
+
+        return 0;
+    }
+
+    /**
+     * The getBoolean() method returns true or false value. The method gets
+     * pseudorandom number in range from 0 to 99, and if the choosed number is
+     * even, it returns true, or returns false if choosed number is odd.
+     *
+     * Simple method use:
+     *
      * RandomGenerator r = new RandomGenerator();
      * boolean b = r.getBoolean();
      *
@@ -200,7 +223,7 @@ public class RandomGenerator {
 
         int choosedRandomNumber = 0;
 
-        Random random = new Random();
+        random = new Random();
 
         choosedRandomNumber = random.nextInt(100);
 
