@@ -2,6 +2,8 @@ package przemek.kubacki.hotmail.com.randomgenerator;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,23 +19,12 @@ public class RandomGenerator {
 
     private double firstNumberOfRangeDouble, secondNumberOfRangeDouble;
 
-//    private final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//    private char[] charArray = new char[CHARACTERS.length()];
+    private final String CHARACTERS
+            = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    private char[] charArray = new char[CHARACTERS.length()];
+
     Random random;
-
-    /**
-     * The main method.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-
-        RandomGenerator randGen = new RandomGenerator();
-
-        randGen.askForNumbers();
-        randGen.randomFromRange(randGen.getFirstNumberOfRangeInt(), randGen.getSecondNumberOfRangeInt());
-        randGen.getBoolean();
-    }
 
     /**
      * Constructors
@@ -114,13 +105,20 @@ public class RandomGenerator {
         this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
     }
 
-    // do i need it?
-    public int getNumberOfRandom() {
-        return numberOfRandom;
-    }
+    /**
+     * The main method.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
 
-    public void setNumberOfRandom(int numberOfRandom) {
-        this.numberOfRandom = numberOfRandom;
+        RandomGenerator randGen = new RandomGenerator();
+
+//        randGen.askForNumbers();
+//        randGen.randomFromRange(randGen.getFirstNumberOfRangeInt(), randGen.getSecondNumberOfRangeInt());
+//        randGen.getBoolean();
+        randGen.testGetBoolean();
+        randGen.testGetCharacter();
     }
 
     // trzeba zrobić scanner dla doubli i floatów
@@ -232,5 +230,90 @@ public class RandomGenerator {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Potrzebne komentarze
+     *
+     * @param numberOfChar
+     * @return
+     * @throws Exception
+     */
+    public char[] getCharacter(int numberOfChar) throws Exception {
+
+        int index;
+
+        char[] c = new char[numberOfChar];
+
+        random = new Random();
+
+        for (int i = 0; i < charArray.length; i++) {
+
+            charArray[i] = CHARACTERS.charAt(i);
+        }
+
+        // do refactoru
+        switch (numberOfChar) {
+            case 0:
+
+                throw new Exception("Unalbe to get 0 characters.");
+            case 1:
+
+                index = random.nextInt(charArray.length);
+
+                c[0] = charArray[index];
+
+                return c;
+            default:
+
+                if (numberOfChar > 1) {
+
+                    for (int j = 0; j < c.length; j++) {
+
+                        index = random.nextInt(charArray.length);
+
+                        c[j] = charArray[index];
+                    }
+                    
+                    return c;
+                } else {
+                    
+                    throw new Exception();
+                }
+        }
+    }
+
+    /**
+     * TESTS
+     */
+    
+    RandomGenerator r = null;
+
+    private void testGetBoolean() {
+
+        r = new RandomGenerator();
+
+        boolean b = r.getBoolean();
+
+        System.out.println("\n");
+        System.out.println(b);
+    }
+
+    private void testGetCharacter() {
+
+        r = new RandomGenerator();
+
+        char[] aaaa = new char[20];
+
+        try {
+
+            aaaa = r.getCharacter(-5);
+
+            System.out.println(aaaa);
+        } catch (Exception ex) {
+
+            Logger.getLogger(RandomGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
