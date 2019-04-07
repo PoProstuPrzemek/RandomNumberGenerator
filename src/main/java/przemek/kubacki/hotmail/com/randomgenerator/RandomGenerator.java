@@ -1,19 +1,18 @@
 package przemek.kubacki.hotmail.com.randomgenerator;
 
 import java.util.Random;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import przemek.kubacki.hotmail.com.randomgenerator.interfaces.RandomGeneratorInterface;
 
 /**
+ * This library is used to generate pseudorandom number in given interval, or to
+ * get random boolean or certain number of characters.
  *
  * @author PoProstuPrzemek
  */
-public class RandomGenerator {
+public class RandomGenerator implements RandomGeneratorInterface {
 
     private int firstNumberOfRangeInt, secondNumberOfRangeInt;
-    private int numberOfRandom = 1;
-//    private int numberOfRandomChar = 1;
 
     private float firstNumberOfRangeFloat, secondNumberOfRangeFloat;
 
@@ -22,187 +21,303 @@ public class RandomGenerator {
     private final String CHARACTERS
             = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    private char[] charArray = new char[CHARACTERS.length()];
+    private final char[] charArray = new char[CHARACTERS.length()];
 
     Random random;
 
-    /**
-     * Constructors
-     */
+    public static void main(String[] args) {
+    }
+
     public RandomGenerator() {
     }
 
-    public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt, int numberOfRandom) {
+    /**
+     * Sets first and last integer number of internal range, and sets a flag
+     * to recognise type of number.
+     *
+     * @param firstNumberOfRangeInt
+     * @param secondNumberOfRangeInt
+     */
+    public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt) {
 
-        this.firstNumberOfRangeInt = firstNumberOfRangeInt;
-        this.secondNumberOfRangeInt = secondNumberOfRangeInt;
-        this.numberOfRandom = numberOfRandom;
-    }
-
-    public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat, int numberOfRandom) {
-
-        this.firstNumberOfRangeFloat = firstNumberOfRangeFloat;
-        this.secondNumberOfRangeFloat = secondNumberOfRangeFloat;
-        this.numberOfRandom = numberOfRandom;
-    }
-
-    public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble, int numberOfRandom) {
-
-        this.firstNumberOfRangeDouble = firstNumberOfRangeDouble;
-        this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
-        this.numberOfRandom = numberOfRandom;
+        setFirstNumberOfRangeInt(firstNumberOfRangeInt);
+        setSecondNumberOfRangeInt(secondNumberOfRangeInt);
     }
 
     /**
+     * Sets first and last float number of internal range.
      *
-     * @return
+     * @param firstNumberOfRangeFloat
+     * @param secondNumberOfRangeFloat
      */
-    public int getFirstNumberOfRangeInt() {
+    public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat) {
+
+        setFirstNumberOfRangeFloat(firstNumberOfRangeFloat);
+        setSecondNumberOfRangeFloat(secondNumberOfRangeFloat);
+    }
+
+    /**
+     * Sets first and last double number of internal range.
+     *
+     * @param firstNumberOfRangeDouble
+     * @param secondNumberOfRangeDouble
+     */
+    public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble) {
+
+        setFirstNumberOfRangeDouble(firstNumberOfRangeDouble);
+        setSecondNumberOfRangeDouble(secondNumberOfRangeDouble);
+    }
+
+    // Getters & Setters
+    private int getFirstNumberOfRangeInt() {
         return firstNumberOfRangeInt;
     }
 
-    public void setFirstNumberOfRangeInt(int firstNumberOfRangeInt) {
+    private void setFirstNumberOfRangeInt(int firstNumberOfRangeInt) {
         this.firstNumberOfRangeInt = firstNumberOfRangeInt;
     }
 
-    public int getSecondNumberOfRangeInt() {
+    private int getSecondNumberOfRangeInt() {
         return secondNumberOfRangeInt;
     }
 
-    public void setSecondNumberOfRangeInt(int secondNumberOfRangeInt) {
+    private void setSecondNumberOfRangeInt(int secondNumberOfRangeInt) {
         this.secondNumberOfRangeInt = secondNumberOfRangeInt;
     }
 
-    public float getFirstNumberOfRangeFloat() {
+    private float getFirstNumberOfRangeFloat() {
         return firstNumberOfRangeFloat;
     }
 
-    public void setFirstNumberOfRangeFloat(float firstNumberOfRangeFloat) {
+    private void setFirstNumberOfRangeFloat(float firstNumberOfRangeFloat) {
         this.firstNumberOfRangeFloat = firstNumberOfRangeFloat;
     }
 
-    public float getSecondNumberOfRangeFloat() {
+    private float getSecondNumberOfRangeFloat() {
         return secondNumberOfRangeFloat;
     }
 
-    public void setSecondNumberOfRangeFloat(float secondNumberOfRangeFloat) {
+    private void setSecondNumberOfRangeFloat(float secondNumberOfRangeFloat) {
         this.secondNumberOfRangeFloat = secondNumberOfRangeFloat;
     }
 
-    public double getFirstNumberOfRangeDouble() {
+    private double getFirstNumberOfRangeDouble() {
         return firstNumberOfRangeDouble;
     }
 
-    public void setFirstNumberOfRangeDouble(double firstNumberOfRangeDouble) {
+    private void setFirstNumberOfRangeDouble(double firstNumberOfRangeDouble) {
         this.firstNumberOfRangeDouble = firstNumberOfRangeDouble;
     }
 
-    public double getSecondNumberOfRangeDouble() {
+    private double getSecondNumberOfRangeDouble() {
         return secondNumberOfRangeDouble;
     }
 
-    public void setSecondNumberOfRangeDouble(double secondNumberOfRangeDouble) {
+    private void setSecondNumberOfRangeDouble(double secondNumberOfRangeDouble) {
         this.secondNumberOfRangeDouble = secondNumberOfRangeDouble;
     }
 
     /**
-     * The main method.
+     * The getRandomInt() method is used to get an integer from range given in
+     * constructor.
      *
-     * @param args
+     * <p>
+     * Example of usage:
+     *
+     * <p>
+     * RandomGenerator r = new RandomGenerator(-250, 250);
+     * <br>int i = r.getRandomInt();
+     *
+     *
+     * @return Random int
      */
-    public static void main(String[] args) {
+    @Override
+    public int getRandomInt() {
 
-        RandomGenerator randGen = new RandomGenerator();
+        if (getFirstNumberOfRangeInt() >= getSecondNumberOfRangeInt()) {
 
-//        randGen.askForNumbers();
-//        randGen.randomFromRange(randGen.getFirstNumberOfRangeInt(), randGen.getSecondNumberOfRangeInt());
-//        randGen.getBoolean();
-        randGen.testGetBoolean();
-        randGen.testGetCharacter();
-    }
-
-    // trzeba zrobić scanner dla doubli i floatów
-    private void askForNumbers() {
-
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Type the first number of interval: ");
-        int firstNumber = scanner.nextInt();
-
-        System.out.print("Type the second number of interval: ");
-        int secondNumber = scanner.nextInt();
-
-        if (firstNumber >= secondNumber) {
             throw new NegativeArraySizeException("The first number can't be"
-                    + " higher than the second one.");
-        } else {
-
-            setFirstNumberOfRangeInt(firstNumber);
-            setSecondNumberOfRangeInt(secondNumber);
-
-            System.out.print("\n");
-            System.out.println("firstNumberInt: " + firstNumber);
-            System.out.println("secondNumberInt: " + secondNumber);
-            System.out.print("\n");
+                    + " higher or equal than the second one.");
         }
+
+        return randomFromRangeInt(getFirstNumberOfRangeInt(), getSecondNumberOfRangeInt());
     }
 
     /**
-     * This method
+     * The getRandomFloat() method is used to get an double from range given in
+     * constructor.
+     *
+     * <p>
+     * Example of usage:
+     *
+     * <p>
+     * RandomGenerator r = new RandomGenerator(103.05312f, 32566.31f);
+     * <br>float f = r.getRandomFloat();
+     *
+     *
+     * @return Random double
+     */
+    @Override
+    public float getRandomFloat() {
+
+        if (getFirstNumberOfRangeFloat() >= getSecondNumberOfRangeFloat()) {
+
+            throw new NegativeArraySizeException("The first number can't be"
+                    + " higher or equal than the second one.");
+        }
+
+        return randomFromRangeFloat(getFirstNumberOfRangeFloat(), getSecondNumberOfRangeFloat());
+    }
+
+    /**
+     * The getRandomDouble() method is used to get an double from range given in
+     * constructor.
+     *
+     * <p>
+     * Example of usage:
+     *
+     * <p>
+     * RandomGenerator r = new RandomGenerator(0.20091d, 566.312223123121d);
+     * <br>double d = r.getRandomDouble();
+     *
+     *
+     * @return Random float
+     */
+    @Override
+    public double getRandomDouble() {
+
+        if (getFirstNumberOfRangeDouble() >= getSecondNumberOfRangeDouble()) {
+
+            throw new NegativeArraySizeException("The first number can't be"
+                    + " higher or equal than the second one.");
+        }
+
+        return randomFromRangeDouble(getFirstNumberOfRangeDouble(), getSecondNumberOfRangeDouble());
+    }
+
+    /**
+     * This method allows to figure random integer using counted range of interval
+     * between first and last given number.
      *
      * @param beginningOfRange
      * @param lastOfRange
+     * @return Generated pseudorandom int
      */
-    private void randomFromRange(int beginningOfRange, int lastOfRange) {
+    private int randomFromRangeInt(int beginningOfRange, int lastOfRange) {
+
+        int returnedRange;
+        int randomNumber;
 
         random = new Random();
 
-        int returnedRange;
-        int randomNumber = 0;
+        returnedRange = rangeOfIntervalInt(beginningOfRange, lastOfRange);
 
-        returnedRange = rangeOfInterval(beginningOfRange, lastOfRange);
+        if (beginningOfRange != 0) {
 
-        if (beginningOfRange < 0) {
-            randomNumber = random.nextInt(returnedRange) + beginningOfRange;
+            return randomNumber = random.nextInt(returnedRange) + beginningOfRange;
         } else {
-            randomNumber = random.nextInt(returnedRange) - beginningOfRange;
-        }
 
-        System.out.println("Generated random number is: " + randomNumber);
+            return randomNumber = random.nextInt(returnedRange) - beginningOfRange;
+        }
     }
 
     /**
-     * The method rangeOfInterval(int first, int last) returns a range of
-     * interval.
+     * This method allows to figure random float using counted range of interval
+     * between first and last given number.
+     *
+     * @param beginningOfRange
+     * @param lastOfRange
+     * @return Generated pseudorandom float
+     */
+    private float randomFromRangeFloat(float beginningOfRange, float lastOfRange) {
+
+        float returnedRange;
+        float randomNumber;
+
+        random = new Random();
+
+        returnedRange = rangeOfIntervalFloat(beginningOfRange, lastOfRange);
+
+        if (beginningOfRange != 0.0f) {
+
+            return randomNumber = random.nextFloat() * returnedRange + beginningOfRange;
+        } else {
+
+            return randomNumber = random.nextFloat() * returnedRange - beginningOfRange;
+        }
+    }
+
+    /**
+     * This method allows to figure random double using counted range of interval
+     * between first and last number.
+     *
+     * @param beginningOfRange
+     * @param lastOfRange
+     * @return Generated pseudorandom double
+     */
+    private double randomFromRangeDouble(double beginningOfRange, double lastOfRange) {
+
+        double returnedRange;
+        double randomNumber;
+
+        random = new Random();
+
+        returnedRange = rangeOfIntervalDouble(beginningOfRange, lastOfRange);
+
+        if (beginningOfRange != 0.0d) {
+
+            return randomNumber = random.nextDouble() * returnedRange + beginningOfRange;
+        } else {
+
+            return randomNumber = random.nextDouble() * returnedRange - beginningOfRange;
+        }
+    }
+
+    /**
+     * This method allows to determine range of interval between the given
+     * numbers.
      *
      * @param first
      * @param last
-     * @return
+     * @return Integer range of Interval
      */
-    private int rangeOfInterval(int first, int last) {
+    private int rangeOfIntervalInt(int first, int last) {
 
-        // Need to count a range of our interval (interval == przedział)
         int range = (last - first) + 1;
-        int rangeArray[] = new int[range];
-
-        for (int i : rangeArray) {
-            rangeArray[i] = first;
-            first++;
-
-//            System.out.println("rangeArray[i] = " + rangeArray[i]);
-        }
-
-        System.out.println("Range of the interval is: " + range);
 
         return range;
     }
 
     /**
-     * spróbować coś z tablicą...
+     * This method allows to determine range of interval between the given
+     * numbers.
+     *
+     * @param first
+     * @param last
+     * @return Float range of Interval
      */
-    private int NumberOfRandom() {
+    private float rangeOfIntervalFloat(float first, float last) {
 
-        return 0;
+        // Need to count a range of our interval (interval == przedział)
+        float range = (last - first) + 0.0000001f;
+
+        return range;
+    }
+
+    /**
+     * This method allows to determine range of interval between the given
+     * numbers.
+     *
+     * @param first
+     * @param last
+     * @return Double range of Interval
+     */
+    private double rangeOfIntervalDouble(double first, double last) {
+
+        // Need to count a range of our interval (interval == przedział)
+        double range = (last - first) + 0.000000000000001d;
+
+        return range;
     }
 
     /**
@@ -210,13 +325,19 @@ public class RandomGenerator {
      * pseudorandom number in range from 0 to 99, and if the choosed number is
      * even, it returns true, or returns false if choosed number is odd.
      *
+     * <p>
      * Simple method use:
      *
+     * <pre>
+     * <code>
      * RandomGenerator r = new RandomGenerator();
      * boolean b = r.getBoolean();
+     * </code>
+     * </pre>
      *
-     * @return
+     * @return True, or False
      */
+    @Override
     public boolean getBoolean() {
 
         int choosedRandomNumber = 0;
@@ -226,24 +347,44 @@ public class RandomGenerator {
         choosedRandomNumber = random.nextInt(100);
 
         if (choosedRandomNumber % 2 == 0) {
+
             return true;
         } else {
+
             return false;
         }
     }
 
     /**
-     * Potrzebne komentarze
+     * This method allows to get a certain number of specified characters:
+     * abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+     *
+     * <p>
+     * Simple method use:
+     *
+     * <pre>
+     * <code>
+     * RandomGenerator r = new RandomGenerator();
+     * char[] a = new char[10];
+     *
+     * try {
+     *      a = r.getCharacter(-5);
+     * } catch (Exception ex) {
+     *      System.err.println("Exception: " + ex);
+     * }
+     * </code>
+     * </pre>
      *
      * @param numberOfChar
-     * @return
+     * @return certain number of char
      * @throws Exception
      */
+    @Override
     public char[] getCharacter(int numberOfChar) throws Exception {
 
         int index;
 
-        char[] c = new char[numberOfChar];
+        char[] character = new char[numberOfChar];
 
         random = new Random();
 
@@ -252,8 +393,8 @@ public class RandomGenerator {
             charArray[i] = CHARACTERS.charAt(i);
         }
 
-        // do refactoru
         switch (numberOfChar) {
+
             case 0:
 
                 throw new Exception("Unalbe to get 0 characters.");
@@ -261,59 +402,26 @@ public class RandomGenerator {
 
                 index = random.nextInt(charArray.length);
 
-                c[0] = charArray[index];
+                character[0] = charArray[index];
 
-                return c;
+                return character;
             default:
 
                 if (numberOfChar > 1) {
 
-                    for (int j = 0; j < c.length; j++) {
+                    for (int j = 0; j < character.length; j++) {
 
                         index = random.nextInt(charArray.length);
 
-                        c[j] = charArray[index];
+                        character[j] = charArray[index];
                     }
-                    
-                    return c;
+
+                    return character;
                 } else {
-                    
-                    throw new Exception();
+
+                    throw new IllegalArgumentException("The given number should "
+                            + "be an integer greater than zero.");
                 }
         }
-    }
-
-    /**
-     * TESTS
-     */
-    
-    RandomGenerator r = null;
-
-    private void testGetBoolean() {
-
-        r = new RandomGenerator();
-
-        boolean b = r.getBoolean();
-
-        System.out.println("\n");
-        System.out.println(b);
-    }
-
-    private void testGetCharacter() {
-
-        r = new RandomGenerator();
-
-        char[] aaaa = new char[20];
-
-        try {
-
-            aaaa = r.getCharacter(-5);
-
-            System.out.println(aaaa);
-        } catch (Exception ex) {
-
-            Logger.getLogger(RandomGenerator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 }
