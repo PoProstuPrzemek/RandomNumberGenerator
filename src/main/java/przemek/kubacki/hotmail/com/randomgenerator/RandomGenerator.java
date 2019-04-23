@@ -14,6 +14,8 @@ public class RandomGenerator implements RandomGeneratorInterface {
 
     private int firstNumberOfRangeInt, secondNumberOfRangeInt;
 
+    private long firstNumberOfRangeLong, secondNumberOfRangeLong;
+
     private float firstNumberOfRangeFloat, secondNumberOfRangeFloat;
 
     private double firstNumberOfRangeDouble, secondNumberOfRangeDouble;
@@ -42,6 +44,19 @@ public class RandomGenerator implements RandomGeneratorInterface {
 
         setFirstNumberOfRangeInt(firstNumberOfRangeInt);
         setSecondNumberOfRangeInt(secondNumberOfRangeInt);
+    }
+
+    /**
+     * Sets first and last integer number of internal range, and sets a flag
+     * to recognise type of number.
+     *
+     * @param firstNumberOfRangeLong
+     * @param secondNumberOfRangeLong
+     */
+    public RandomGenerator(long firstNumberOfRangeLong, long secondNumberOfRangeLong) {
+
+        setFirstNumberOfRangeLong(firstNumberOfRangeLong);
+        setSecondNumberOfRangeLong(secondNumberOfRangeLong);
     }
 
     /**
@@ -85,6 +100,22 @@ public class RandomGenerator implements RandomGeneratorInterface {
         this.secondNumberOfRangeInt = secondNumberOfRangeInt;
     }
 
+    private long getFirstNumberOfRangeLong() {
+        return firstNumberOfRangeLong;
+    }
+
+    private void setFirstNumberOfRangeLong(long firstNumberOfRangeLong) {
+        this.firstNumberOfRangeLong = firstNumberOfRangeLong;
+    }
+
+    private long getSecondNumberOfRangeLong() {
+        return secondNumberOfRangeLong;
+    }
+
+    private void setSecondNumberOfRangeLong(long secondNumberOfRangeLong) {
+        this.secondNumberOfRangeLong = secondNumberOfRangeLong;
+    }
+
     private float getFirstNumberOfRangeFloat() {
         return firstNumberOfRangeFloat;
     }
@@ -124,10 +155,12 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * <p>
      * Example of usage:
      *
-     * <p>
+     * <pre>
+     * <code>
      * RandomGenerator r = new RandomGenerator(-250, 250);
-     * <br>int i = r.getRandomInt();
-     *
+     * int i = r.getRandomInt();
+     * </code>
+     * </pre>
      *
      * @return Random int
      */
@@ -135,12 +168,38 @@ public class RandomGenerator implements RandomGeneratorInterface {
     public int getRandomInt() {
 
         if (getFirstNumberOfRangeInt() >= getSecondNumberOfRangeInt()) {
-
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
         }
 
         return randomFromRangeInt(getFirstNumberOfRangeInt(), getSecondNumberOfRangeInt());
+    }
+
+    /**
+     * The getRandomInt() method is used to get an integer from range given in
+     * constructor.
+     *
+     * <p>
+     * Example of usage:
+     *
+     * <pre>
+     * <code>
+     * RandomGenerator r = new RandomGenerator(-250, 250);
+     * int i = r.getRandomInt();
+     * </code>
+     * </pre>
+     *
+     * @return Random int
+     */
+    @Override
+    public long getRandomLong() {
+
+        if (getFirstNumberOfRangeLong() >= getSecondNumberOfRangeLong()) {
+            throw new NegativeArraySizeException("The first number can't be"
+                    + " higher or equal than the second one.");
+        }
+
+        return randomFromRangeLong(getFirstNumberOfRangeLong(), getSecondNumberOfRangeLong());
     }
 
     /**
@@ -150,10 +209,12 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * <p>
      * Example of usage:
      *
-     * <p>
+     * <pre>
+     * <code>
      * RandomGenerator r = new RandomGenerator(103.05312f, 32566.31f);
-     * <br>float f = r.getRandomFloat();
-     *
+     * float f = r.getRandomFloat();
+     * </code>
+     * </pre>
      *
      * @return Random double
      */
@@ -161,7 +222,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
     public float getRandomFloat() {
 
         if (getFirstNumberOfRangeFloat() >= getSecondNumberOfRangeFloat()) {
-
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
         }
@@ -176,10 +236,12 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * <p>
      * Example of usage:
      *
-     * <p>
+     * <pre>
+     * <code>
      * RandomGenerator r = new RandomGenerator(0.20091d, 566.312223123121d);
-     * <br>double d = r.getRandomDouble();
-     *
+     * double d = r.getRandomDouble();
+     * </code>
+     * </pre>
      *
      * @return Random float
      */
@@ -187,7 +249,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
     public double getRandomDouble() {
 
         if (getFirstNumberOfRangeDouble() >= getSecondNumberOfRangeDouble()) {
-
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
         }
@@ -213,11 +274,33 @@ public class RandomGenerator implements RandomGeneratorInterface {
         returnedRange = rangeOfIntervalInt(beginningOfRange, lastOfRange);
 
         if (beginningOfRange != 0) {
-
             return randomNumber = random.nextInt(returnedRange) + beginningOfRange;
         } else {
-
             return randomNumber = random.nextInt(returnedRange) - beginningOfRange;
+        }
+    }
+
+    /**
+     * This method allows to figure random integer using counted range of interval
+     * between first and last given number.
+     *
+     * @param beginningOfRange
+     * @param lastOfRange
+     * @return Generated pseudorandom int
+     */
+    private long randomFromRangeLong(long beginningOfRange, long lastOfRange) {
+
+        long returnedRange;
+        long randomNumber;
+
+        random = new Random();
+
+        returnedRange = rangeOfIntervalLong(beginningOfRange, lastOfRange);
+
+        if (beginningOfRange != 0) {
+            return randomNumber = random.nextLong() * returnedRange + beginningOfRange;
+        } else {
+            return randomNumber = random.nextLong() * returnedRange - beginningOfRange;
         }
     }
 
@@ -239,10 +322,8 @@ public class RandomGenerator implements RandomGeneratorInterface {
         returnedRange = rangeOfIntervalFloat(beginningOfRange, lastOfRange);
 
         if (beginningOfRange != 0.0f) {
-
             return randomNumber = random.nextFloat() * returnedRange + beginningOfRange;
         } else {
-
             return randomNumber = random.nextFloat() * returnedRange - beginningOfRange;
         }
     }
@@ -265,10 +346,8 @@ public class RandomGenerator implements RandomGeneratorInterface {
         returnedRange = rangeOfIntervalDouble(beginningOfRange, lastOfRange);
 
         if (beginningOfRange != 0.0d) {
-
             return randomNumber = random.nextDouble() * returnedRange + beginningOfRange;
         } else {
-
             return randomNumber = random.nextDouble() * returnedRange - beginningOfRange;
         }
     }
@@ -284,6 +363,21 @@ public class RandomGenerator implements RandomGeneratorInterface {
     private int rangeOfIntervalInt(int first, int last) {
 
         int range = (last - first) + 1;
+
+        return range;
+    }
+
+    /**
+     * This method allows to determine range of interval between the given
+     * numbers.
+     *
+     * @param first
+     * @param last
+     * @return Integer range of Interval
+     */
+    private long rangeOfIntervalLong(long first, long last) {
+
+        long range = (last - first) + 1;
 
         return range;
     }
@@ -347,15 +441,14 @@ public class RandomGenerator implements RandomGeneratorInterface {
         choosedRandomNumber = random.nextInt(100);
 
         if (choosedRandomNumber % 2 == 0) {
-
             return true;
         } else {
-
             return false;
         }
     }
 
     /**
+     *
      * This method allows to get a certain number of specified characters:
      * abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
      *
@@ -365,10 +458,12 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * <pre>
      * <code>
      * RandomGenerator r = new RandomGenerator();
-     * char[] a = new char[10];
+     * int lengthOfChar = 10;
+     *
+     * char[] c = new char[lengthOfChar];
      *
      * try {
-     *      a = r.getCharacter(-5);
+     *      c = r.getCharacter(lengthOfChar);
      * } catch (Exception ex) {
      *      System.err.println("Exception: " + ex);
      * }
@@ -389,12 +484,10 @@ public class RandomGenerator implements RandomGeneratorInterface {
         random = new Random();
 
         for (int i = 0; i < charArray.length; i++) {
-
             charArray[i] = CHARACTERS.charAt(i);
         }
 
         switch (numberOfChar) {
-
             case 0:
 
                 throw new Exception("Unalbe to get 0 characters.");
@@ -408,9 +501,7 @@ public class RandomGenerator implements RandomGeneratorInterface {
             default:
 
                 if (numberOfChar > 1) {
-
                     for (int j = 0; j < character.length; j++) {
-
                         index = random.nextInt(charArray.length);
 
                         character[j] = charArray[index];
@@ -418,10 +509,47 @@ public class RandomGenerator implements RandomGeneratorInterface {
 
                     return character;
                 } else {
-
-                    throw new IllegalArgumentException("The given number should "
+                    throw new NegativeArraySizeException("The given number should "
                             + "be an integer greater than zero.");
                 }
         }
+    }
+
+    /**
+     * This method allows to get a String consist of specified characters:
+     * abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+     *
+     * <p>
+     * Simple method use:
+     *
+     * <pre>
+     * <code>
+     * RandomGenerator r = new RandomGenerator();
+     *
+     * String s = r.getCharacterToString(12);
+     *
+     * </code>
+     * </pre>
+     *
+     * @param numberOfCharToString
+     * @return
+     * @throws Exception
+     */
+    public String getCharacterToString(int numberOfCharToString) throws Exception {
+
+        StringBuilder characters = new StringBuilder();
+        String returnCharacters;
+
+        char[] getCharArray = new char[numberOfCharToString];
+
+        getCharArray = getCharacter(numberOfCharToString);
+
+        for (char c : getCharArray) {
+            characters.append(c);
+        }
+
+        returnCharacters = characters.toString();
+
+        return returnCharacters;
     }
 }

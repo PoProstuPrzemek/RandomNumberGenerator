@@ -6,13 +6,15 @@ package przemek.kubacki.hotmail.com.randomgenerator.interfaces;
  */
 public interface RandomGeneratorInterface {
 
-    public int getRandomInt();
+    int getRandomInt();
+    
+    long getRandomLong();
 
-    public double getRandomDouble();
+    double getRandomDouble();
 
-    public float getRandomFloat();
+    float getRandomFloat();
 
-    public boolean getBoolean();
+    boolean getBoolean();
 
-    public char[] getCharacter(int numberOfCharacter) throws Exception;
+    char[] getCharacter(int numberOfCharacter) throws Exception;
 }
