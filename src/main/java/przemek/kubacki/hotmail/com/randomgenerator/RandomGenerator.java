@@ -41,7 +41,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @param secondNumberOfRangeInt
      */
     public RandomGenerator(int firstNumberOfRangeInt, int secondNumberOfRangeInt) {
-
         setFirstNumberOfRangeInt(firstNumberOfRangeInt);
         setSecondNumberOfRangeInt(secondNumberOfRangeInt);
     }
@@ -54,7 +53,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @param secondNumberOfRangeLong
      */
     public RandomGenerator(long firstNumberOfRangeLong, long secondNumberOfRangeLong) {
-
         setFirstNumberOfRangeLong(firstNumberOfRangeLong);
         setSecondNumberOfRangeLong(secondNumberOfRangeLong);
     }
@@ -66,7 +64,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @param secondNumberOfRangeFloat
      */
     public RandomGenerator(float firstNumberOfRangeFloat, float secondNumberOfRangeFloat) {
-
         setFirstNumberOfRangeFloat(firstNumberOfRangeFloat);
         setSecondNumberOfRangeFloat(secondNumberOfRangeFloat);
     }
@@ -78,7 +75,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @param secondNumberOfRangeDouble
      */
     public RandomGenerator(double firstNumberOfRangeDouble, double secondNumberOfRangeDouble) {
-
         setFirstNumberOfRangeDouble(firstNumberOfRangeDouble);
         setSecondNumberOfRangeDouble(secondNumberOfRangeDouble);
     }
@@ -166,7 +162,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public int getRandomInt() {
-
         if (getFirstNumberOfRangeInt() >= getSecondNumberOfRangeInt()) {
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
@@ -193,7 +188,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public long getRandomLong() {
-
         if (getFirstNumberOfRangeLong() >= getSecondNumberOfRangeLong()) {
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
@@ -220,7 +214,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public float getRandomFloat() {
-
         if (getFirstNumberOfRangeFloat() >= getSecondNumberOfRangeFloat()) {
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
@@ -247,7 +240,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public double getRandomDouble() {
-
         if (getFirstNumberOfRangeDouble() >= getSecondNumberOfRangeDouble()) {
             throw new NegativeArraySizeException("The first number can't be"
                     + " higher or equal than the second one.");
@@ -265,7 +257,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Generated pseudorandom int
      */
     private int randomFromRangeInt(int beginningOfRange, int lastOfRange) {
-
         int returnedRange;
         int randomNumber;
 
@@ -289,7 +280,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Generated pseudorandom int
      */
     private long randomFromRangeLong(long beginningOfRange, long lastOfRange) {
-
         long returnedRange;
         long randomNumber;
 
@@ -313,7 +303,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Generated pseudorandom float
      */
     private float randomFromRangeFloat(float beginningOfRange, float lastOfRange) {
-
         float returnedRange;
         float randomNumber;
 
@@ -337,7 +326,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Generated pseudorandom double
      */
     private double randomFromRangeDouble(double beginningOfRange, double lastOfRange) {
-
         double returnedRange;
         double randomNumber;
 
@@ -345,7 +333,7 @@ public class RandomGenerator implements RandomGeneratorInterface {
 
         returnedRange = rangeOfIntervalDouble(beginningOfRange, lastOfRange);
 
-        if (beginningOfRange != 0.0d) {
+        if (beginningOfRange != 0.0D) {
             return randomNumber = random.nextDouble() * returnedRange + beginningOfRange;
         } else {
             return randomNumber = random.nextDouble() * returnedRange - beginningOfRange;
@@ -361,7 +349,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Integer range of Interval
      */
     private int rangeOfIntervalInt(int first, int last) {
-
         int range = (last - first) + 1;
 
         return range;
@@ -376,7 +363,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Integer range of Interval
      */
     private long rangeOfIntervalLong(long first, long last) {
-
         long range = (last - first) + 1;
 
         return range;
@@ -391,7 +377,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Float range of Interval
      */
     private float rangeOfIntervalFloat(float first, float last) {
-
         // Need to count a range of our interval (interval == przedział)
         float range = (last - first) + 0.0000001f;
 
@@ -407,7 +392,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @return Double range of Interval
      */
     private double rangeOfIntervalDouble(double first, double last) {
-
         // Need to count a range of our interval (interval == przedział)
         double range = (last - first) + 0.000000000000001d;
 
@@ -433,7 +417,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public boolean getBoolean() {
-
         int choosedRandomNumber = 0;
 
         random = new Random();
@@ -476,7 +459,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      */
     @Override
     public char[] getCharacter(int numberOfChar) throws Exception {
-
         int index;
 
         char[] character = new char[numberOfChar];
@@ -536,7 +518,6 @@ public class RandomGenerator implements RandomGeneratorInterface {
      * @throws Exception
      */
     public String getCharacterToString(int numberOfCharToString) throws Exception {
-
         StringBuilder characters = new StringBuilder();
         String returnCharacters;
 
